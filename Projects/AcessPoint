@@ -1,0 +1,75 @@
+#!/bin/bash
+
+sudo apt-get install hostapd dnsmasq
+
+sudo systemctl stop hostapd
+sudo systemctl stop dnsmasq
+
+clear
+echo 'interface wlan0
+    static ip_address=192.168.220.1/24
+    nohook wpa_supplicant'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/dhcpcd.conf
+
+
+
+sudo systemctl restart dhcpcd
+
+
+clear
+echo 'Changer la fin ssid et le pass'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/hostapd/hostapd.conf
+
+
+
+clear
+echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/default/hostapd
+
+clear
+echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/init.d/hostapd
+
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+
+clear
+echo 
+'interface=wlan0       # Use interface wlan0  
+server=1.1.1.1       # Use Cloudflare DNS  
+dhcp-range=192.168.220.50,192.168.220.150,12h # IP range and lease time '
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/dnsmasq.conf
+
+
+clear
+echo 'net.ipv4.ip_forward=1'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/sysctl.conf
+
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+
+
+
+clear
+echo 'Find:
+
+exit 0
+
+Add above “exit 0”:
+
+iptables-restore < /etc/iptables.ipv4.nat'
+read -n 1 -s -r -p "Press any key to continue"
+sudo nano /etc/rc.local
+
+sudo service hostapd start
+sudo service dnsmasq start
+sudo reboot
+
+

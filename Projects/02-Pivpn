@@ -1,0 +1,8 @@
+ #!/bin/bash
+
+echo 'Ce script va installer PIVPN.
+Un reboot est necessaire, après "pivpn add" pour ajouter un client et penssez à ouvrir le port sur le router'
+read -n 1 -s -r -p "Press any key to continue"
+
+curl -L https://install.pivpn.io | bash
+

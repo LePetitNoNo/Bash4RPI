@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo 'Ce script va installer pihole, le DNS serra l ip de ce RPI pour le router sinon: appareils par appareils..., pour UNIX c est dans /etc/resolv.conf'
+read -n 1 -s -r -p "Press any key to continue"
+
+curl -sSL https://install.pi-hole.net | bash

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+echo 'on va mettre push "dhcp-option DNS 10.8.0.1" dans /etc/openvpn/server.conf'
+read -n 1 -s -r -p "Press any key to continue"
+
+sudo nano /etc/openvpn/server.conf
+
+echo 'on va mettre push "listen-address=127.0.0.1,"ip du RPI", 10.8.0.1" dans sudo nano /etc/dnsmasq.conf'
+read -n 1 -s -r -p "Press any key to continue"
+
+sudo nano /etc/dnsmasq.conf
+
+echo 'reboot now'
+read -n 1 -s -r -p "Press any key to continue"
+sudo reboot

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+
+
+
+
+#####installer et lancer le server##############
+
+sudo apt install tightvncserver -y
+vncserver :1 -geometry 1920x1080 -depth 24
+
+
+
+
+
+cd /home/pi/ &&
+
+
+
+
+
+#####créer un script et le lancer au démarrage###
+
+bash -c 'cat <<EOF > VNC
+#!/bin/bash
+vncserver :1 -geometry 1920x1080 -depth 24
+EOF'
+
+chmod +x VNC
+
+echo 'sh /home/pi/VNC' >> .profile

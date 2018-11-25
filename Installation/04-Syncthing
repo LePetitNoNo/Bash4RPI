@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo apt install syncthing -y
+ 
+
+echo 'syncthing --no-browser' >>  ~/.profile
+
+
+syncthing
